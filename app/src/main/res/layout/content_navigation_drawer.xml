@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.kuldip.jobportal.NavigationDrawerActivity"
+    tools:context="com.example.kuldip.jobportal.Activities.NavigationDrawerActivity"
     tools:showIn="@layout/app_bar_navigation_drawer">
+
+    <include layout="@layout/search_view" />
 
 </LinearLayout>

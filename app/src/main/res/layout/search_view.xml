@@ -50,14 +50,7 @@
           android:layout_height="30dp"
 
           />
-      <Spinner
-          android:layout_margin="5dp"
-          android:background="@drawable/edittext_selector"
-          android:id="@+id/job_location"
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:layout_height="30dp"
-          />
+
    </LinearLayout>
       <LinearLayout
           android:orientation="horizontal"

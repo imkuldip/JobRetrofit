@@ -1,4 +1,4 @@
-package com.example.kuldip.jobportal;
+package com.example.kuldip.jobportal.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.kuldip.jobportal.Fragments.HomeTopFragment;
+import com.example.kuldip.jobportal.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
