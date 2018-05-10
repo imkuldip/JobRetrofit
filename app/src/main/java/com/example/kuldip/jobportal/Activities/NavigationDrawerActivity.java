@@ -1,5 +1,6 @@
 package com.example.kuldip.jobportal.Activities;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kuldip.jobportal.Fragments.HomeTopFragment;
+import com.example.kuldip.jobportal.Fragments.ServiceFragment;
 import com.example.kuldip.jobportal.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity
@@ -43,6 +45,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        getFragmentManager().beginTransaction().replace(R.id.container,new HomeTopFragment()).commit();
     }
 
     @Override
@@ -83,14 +86,15 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.home) {
+        if (id == R.id.nav_home) {
             getFragmentManager().beginTransaction().replace(R.id.container,new HomeTopFragment()).commit();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_jobs) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_post_jobs) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_services) {
+            getFragmentManager().beginTransaction().replace(R.id.container,new ServiceFragment()).commit();
 
         } else if (id == R.id.nav_share) {
 
