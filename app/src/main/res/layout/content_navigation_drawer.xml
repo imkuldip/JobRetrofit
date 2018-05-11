@@ -10,7 +10,7 @@
     tools:context="com.example.kuldip.jobportal.Activities.NavigationDrawerActivity"
     tools:showIn="@layout/app_bar_navigation_drawer">
 
-    <include layout="@layout/search_view" />
+
 
 
 </LinearLayout>

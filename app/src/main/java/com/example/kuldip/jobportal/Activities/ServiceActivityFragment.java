@@ -11,6 +11,7 @@ import com.example.kuldip.jobportal.R;
 public class ServiceActivityFragment extends AppCompatActivity {
 
     ServiceFragment serviceFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +23,8 @@ public class ServiceActivityFragment extends AppCompatActivity {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        transaction.replace(R.id.searchContainer,serviceFragment);
+        transaction.replace(R.id.serviceContainer,serviceFragment);
         transaction.commit();
-
 
 
 
