@@ -1,13 +1,20 @@
 package com.example.kuldip.jobportal.Activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.example.kuldip.jobportal.Fragments.HomeTopFragment;
+import com.example.kuldip.jobportal.DataManager.ApiClient;
+import com.example.kuldip.jobportal.DataManager.ApiInterface;
 import com.example.kuldip.jobportal.R;
+import com.example.kuldip.jobportal.model.ListofJobTypes;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,13 +23,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        HomeTopFragment homeTopFragment = new HomeTopFragment();
-        FragmentManager manager = getFragmentManager();
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
 
+        Call<List<ListofJobTypes>> c = apiService.getJobTypeList();
 
-        FragmentTransaction transaction = manager.beginTransaction();
+        c.enqueue(new Callback<List<ListofJobTypes>>() {
+            @Override
+            public void onResponse(Call<List<ListofJobTypes>> call, Response<List<ListofJobTypes>> response) {
 
-        transaction.replace(R.id.mainlayout,homeTopFragment);
-        transaction.commit();
+                List<ListofJobTypes> s = response.body();
+                for (ListofJobTypes j : s){
+                    Log.d("JobType", j.getJob_type());
+                    Toast.makeText(MainActivity.this,  j.getJob_type(), Toast.LENGTH_SHORT).show();
+                    Log.d("RESPONSE", "onResponse: " + response.body());
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<ListofJobTypes>> call, Throwable t) {
+
+            }
+        });
     }
 }
