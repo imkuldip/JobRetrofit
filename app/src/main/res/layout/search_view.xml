@@ -34,6 +34,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
       <Spinner
+
           android:layout_margin="5dp"
           android:background="@drawable/spinner_style"
           android:id="@+id/job_category"
@@ -61,7 +62,7 @@
          <Spinner
              android:layout_margin="5dp"
              android:background="@drawable/edittext_style"
-             android:id="@+id/job_education"
+             android:id="@+id/job_location"
              android:padding="5dp"
              android:layout_width="0dp"
              android:layout_weight="1"
@@ -70,7 +71,7 @@
           <Spinner
               android:layout_margin="5dp"
               android:background="@drawable/edittext_style"
-              android:id="@+id/job_location"
+              android:id="@+id/job_education"
               android:layout_width="0dp"
               android:layout_weight="1"
               android:layout_height="30dp"

@@ -14,7 +14,8 @@ public class ListofJobTypes {
 
     private String job_type;
     //constructior
-    public ListofJobTypes(String job_type) {
+    public ListofJobTypes(String job_type)
+    {
         this.job_type = job_type;
     }
 
@@ -23,7 +24,8 @@ public class ListofJobTypes {
         return job_type;
     }
 
-    public void setJob_type(String job_type) {
+    public void setJob_type(String job_type)
+    {
         this.job_type = job_type;
     }
 
