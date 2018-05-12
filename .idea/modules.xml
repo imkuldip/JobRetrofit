@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JobRetrofit.iml" filepath="$PROJECT_DIR$/JobRetrofit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jobportal.iml" filepath="$PROJECT_DIR$/jobportal.iml" />
     </modules>
   </component>
 </project>

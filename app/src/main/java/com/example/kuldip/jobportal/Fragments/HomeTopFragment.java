@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.kuldip.jobportal.DataManager.ApiClient;
 import com.example.kuldip.jobportal.DataManager.ApiInterface;
+import com.example.kuldip.jobportal.DataManager.Service;
 import com.example.kuldip.jobportal.R;
 import com.example.kuldip.jobportal.model.ListofJobEducation;
 import com.example.kuldip.jobportal.model.ListofJobLocation;
@@ -30,15 +32,16 @@ import retrofit2.Response;
  * Created by Kuldip on 5/8/2018.
  */
 
-public class HomeTopFragment extends Fragment {
+public class HomeTopFragment extends Fragment implements Service.GetJobCallback {
 
     Context context;
-    Spinner jobTypeSpinner,jobLocationSpinner, jobEducationSpinner,jobOwnershipSpinner;
+    Spinner jobTypeSpinner, jobLocationSpinner, jobEducationSpinner, jobOwnershipSpinner;
+    Service service;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View  view = inflater.inflate(R.layout.search_view,null);
+        View view = inflater.inflate(R.layout.search_view, null);
 
         context = container.getContext();
         jobTypeSpinner = view.findViewById(R.id.job_type);
@@ -47,7 +50,8 @@ public class HomeTopFragment extends Fragment {
         jobOwnershipSpinner = view.findViewById(R.id.job_ownership);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
+        service = new Service();
+        service.getJobLocationList(this);
         //Job Types Spinner
         Call<List<ListofJobTypes>> c = apiService.getJobTypeList();
         c.enqueue(new Callback<List<ListofJobTypes>>() {
@@ -55,8 +59,8 @@ public class HomeTopFragment extends Fragment {
             public void onResponse(Call<List<ListofJobTypes>> call, Response<List<ListofJobTypes>> response) {
                 List<ListofJobTypes> s = response.body();
                 String[] jobtype = new String[s.size()];
-                for (int i=0; i<s.size();i++){
-                   // jobtype[0]= "Select Job Type";
+                for (int i = 0; i < s.size(); i++) {
+                    // jobtype[0]= "Select Job Type";
                     jobtype[i] = s.get(i).getJob_type();
                 }
 
@@ -66,6 +70,7 @@ public class HomeTopFragment extends Fragment {
                         jobtype
                 ));
             }
+
             @Override
             public void onFailure(Call<List<ListofJobTypes>> call, Throwable t) {
                 Log.d("dfdfd", "onFailure: " + t.getCause());
@@ -74,39 +79,17 @@ public class HomeTopFragment extends Fragment {
 
 
         //Job Location Spinner
-        Call<List<ListofJobLocation>> l = apiService.getJobLocationList();
-        l.enqueue(new Callback<List<ListofJobLocation>>(){
-            @Override
-            public void onResponse(Call<List<ListofJobLocation>> call, Response<List<ListofJobLocation>> response) {
-                List<ListofJobLocation> s = response.body();
-                String[] joblocation = new String[s.size()];
-                for (int i=0; i<s.size();i++){
-                    // jobtype[0]= "Select Job Type";
-                    joblocation[i] = s.get(i).getJob_location();
-                }
 
-                jobLocationSpinner.setAdapter(new ArrayAdapter<String>(
-                        context,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        //simple_spinner_item,
-                        joblocation
-                ));
-            }
-            @Override
-            public void onFailure(Call<List<ListofJobLocation>> call, Throwable t) {
-                Log.d("dfdfd", "onFailure: " + t.getCause());
-            }
-        });
 
         //Job Education Spinner
 
         Call<List<ListofJobEducation>> e = apiService.getJobEducationList();
-        e.enqueue(new Callback<List<ListofJobEducation>>(){
+        e.enqueue(new Callback<List<ListofJobEducation>>() {
             @Override
             public void onResponse(Call<List<ListofJobEducation>> call, Response<List<ListofJobEducation>> response) {
                 List<ListofJobEducation> s = response.body();
                 String[] jobeducation = new String[s.size()];
-                for (int i=0; i<s.size();i++){
+                for (int i = 0; i < s.size(); i++) {
                     jobeducation[i] = s.get(i).getJob_education();
                 }
 
@@ -117,6 +100,7 @@ public class HomeTopFragment extends Fragment {
                         jobeducation
                 ));
             }
+
             @Override
             public void onFailure(Call<List<ListofJobEducation>> call, Throwable t) {
                 Log.d("dfdfd", "onFailure: " + t.getCause());
@@ -126,12 +110,12 @@ public class HomeTopFragment extends Fragment {
         //Job Ownership Spinner
 
         Call<List<ListofJobOwnerhip>> o = apiService.getJobOwnershipList();
-        o.enqueue(new Callback<List<ListofJobOwnerhip>>(){
+        o.enqueue(new Callback<List<ListofJobOwnerhip>>() {
             @Override
             public void onResponse(Call<List<ListofJobOwnerhip>> call, Response<List<ListofJobOwnerhip>> response) {
                 List<ListofJobOwnerhip> s = response.body();
                 String[] jobownership = new String[s.size()];
-                for (int i=0; i<s.size();i++){
+                for (int i = 0; i < s.size(); i++) {
                     jobownership[i] = s.get(i).getJob_ownership();
                 }
 
@@ -142,6 +126,7 @@ public class HomeTopFragment extends Fragment {
                         jobownership
                 ));
             }
+
             @Override
             public void onFailure(Call<List<ListofJobOwnerhip>> call, Throwable t) {
                 Log.d("dfdfd", "onFailure: " + t.getCause());
@@ -149,14 +134,28 @@ public class HomeTopFragment extends Fragment {
         });
 
 
-
         return view;
 
     }
 
-   @Override
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    @Override
+    public void onSuccess(List<ListofJobLocation> listofJobLocations) {
+        jobEducationSpinner.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, listofJobLocations));
+//        jobLocationSpinner.setAdapter(new ArrayAdapter<String>(
+//                context,
+//                android.R.layout.simple_spinner_dropdown_item,
+//                listofJobLocations
+//        ));
+    }
+
+    @Override
+    public void onError(String e) {
+        Toast.makeText(getActivity(), e, Toast.LENGTH_LONG).show();
     }
 }

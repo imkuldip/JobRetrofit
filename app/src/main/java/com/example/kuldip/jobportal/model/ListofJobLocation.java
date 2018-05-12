@@ -25,6 +25,6 @@ public class ListofJobLocation {
     }
     @Override
     public String toString() {
-        return new Gson().toJson(this);
+        return job_location;
     }
 }
